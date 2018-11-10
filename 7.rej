@@ -1,0 +1,44 @@
+--- config.def.h
++++ config.def.h
+@@ -8,6 +8,7 @@ static const char normfgcolor[]     = "#bbbbbb";
+ static const char selbordercolor[]  = "#005577";
+ static const char selbgcolor[]      = "#005577";
+ static const char selfgcolor[]      = "#eeeeee";
++static const char urgbordercolor[]  = "#ff0000";
+ static const unsigned int borderpx  = 1;        /* border pixel of windows */
+ static const unsigned int snap      = 32;       /* snap pixel */
+ static const Bool showbar           = True;     /* False means no bar */
+--- dwm.c
++++ dwm.c
+@@ -58,7 +58,7 @@
+ 
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+-enum { SchemeNorm, SchemeSel, SchemeLast }; /* color schemes */
++enum { SchemeNorm, SchemeSel, SchemeUrg, SchemeLast }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
+@@ -1537,6 +1537,9 @@ setup(void) {
+ 	scheme[SchemeSel].border = drw_clr_create(drw, selbordercolor);
+ 	scheme[SchemeSel].bg = drw_clr_create(drw, selbgcolor);
+ 	scheme[SchemeSel].fg = drw_clr_create(drw, selfgcolor);
++	scheme[SchemeUrg].border = drw_clr_create(drw, urgbordercolor);
++	scheme[SchemeUrg].bg = drw_clr_create(drw, selbgcolor);
++	scheme[SchemeUrg].fg = drw_clr_create(drw, selfgcolor);
+ 	/* init bars */
+ 	updatebars();
+ 	updatestatus();
+@@ -1982,8 +1985,11 @@ updatewmhints(Client *c) {
+ 			wmh->flags &= ~XUrgencyHint;
+ 			XSetWMHints(dpy, c->win, wmh);
+ 		}
+-		else
++		else {
+ 			c->isurgent = (wmh->flags & XUrgencyHint) ? True : False;
++			if (c->isurgent)
++				XSetWindowBorder(dpy, c->win, scheme[SchemeUrg].border->pix);
++		}
+ 		if(wmh->flags & InputHint)
+ 			c->neverfocus = !wmh->input;
+ 		else
