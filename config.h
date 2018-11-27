@@ -2,19 +2,19 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"inconsolata:size=13"
+	"hack:size=11"
 };
-static const char dmenufont[]       = "inconsolata:size=13";  
-static const char normbordercolor[] = "#050000";
-static const char normbgcolor[]     = "#000000";
-static const char normfgcolor[]     = "#dfdfdf";
-static const char selbordercolor[]  = "#D06C54";
-static const char selbgcolor[]      = "#111111";
-static const char selfgcolor[]      = "#dfdfdf";
-static unsigned int baralpha        = 0xd0;
+static const char dmenufont[]       = "hack:size=11";
+static const char normbordercolor[] = "#202020";
+static const char normbgcolor[]     = "#151515";
+static const char normfgcolor[]     = "#d0d0d0";
+static const char selbordercolor[]  = "#d28445";
+static const char selbgcolor[]      = "#303030";
+static const char selfgcolor[]      = "#d0d0d0";
+static unsigned int baralpha        = 0xff;
 static unsigned int borderalpha     = OPAQUE;
 static const unsigned int borderpx  = 4;        /* border pixel of windows */
-static unsigned int gappx           = 16;        /* gap pixel between windows */
+static unsigned int gappx           = 20;        /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -64,7 +64,7 @@ static const char *termcmd[]  = { "st", NULL };
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *dmenucmd_res[] = { "/home/adam/.scripts/dmenu_run_res", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL }; 
-static const char *rangercmd[] = { "/home/adam/builds/st-ranger/st", "ranger", NULL };
+static const char *lfcmd[] = { "st", "lf", NULL };
 static const char *exitprompt[] = { "/home/adam/.scripts/exitprompt", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL }; 
 static const char *volumeup[] = { "pulseaudio-ctl", "up", NULL };
 static const char *volumedown[] = { "pulseaudio-ctl", "down", NULL };
@@ -72,20 +72,26 @@ static const char *volumeUP[] = { "pulseaudio-ctl", "up 25", NULL };
 static const char *volumeDOWN[] = { "pulseaudio-ctl", "down 25", NULL };
 static const char *volumemute[] = { "pulseaudio-ctl", "mute", NULL };
 static const char *printscreen[] = { "/home/adam/.scripts/screenshot", NULL};
+static const char *sptrestart[] = {"/home/adam/.scripts/sptrestart", NULL};
+static const char *sptshow[] = {"killall", "-SIGUSR1", "spt", NULL};
+static const char *sptpause[] = {"killall", "-SIGUSR2", "spt", NULL};
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd_res } },
-	{ MODKEY,                       XK_r,      spawn,          {.v = rangercmd } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = lfcmd } },
 	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = exitprompt } },
 	{ MODKEY,                       XK_s,      spawn,          {.v = volumeup } },
 	{ MODKEY,                       XK_x,      spawn,          {.v = volumedown } },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = volumeUP } },
 	{ MODKEY|ShiftMask,             XK_x,      spawn,          {.v = volumeDOWN } },
 	{ MODKEY,                       XK_y,      spawn,          {.v = volumemute } },
-	{ NULL,                         XK_Print,  spawn,          {.v = printscreen } },
+	{ MODKEY,                       XK_Print,  spawn,          {.v = printscreen } },
+	{ MODKEY,                       XK_Home,   spawn,          {.v = sptrestart } },
+	{ MODKEY,                       XK_End,    spawn,          {.v = sptshow } },
+	{ MODKEY,                       XK_Pause,  spawn,          {.v = sptpause } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,     	XK_e,      quit,           {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
