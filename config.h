@@ -61,6 +61,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char *termcmd[]  = { "st", NULL };
+static const char *scratchpad[]  = { "/home/adam/.scripts/scratchpad", NULL };
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *dmenucmd_res[] = { "/home/adam/.scripts/dmenu_run_res", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL }; 
@@ -70,7 +71,7 @@ static const char *volumeup[] = { "pamixer", "-i", "5", NULL };
 static const char *volumedown[] = { "pamixer", "-d", "5", NULL };
 static const char *volumeUP[] = { "pamixer", "-i", "25", NULL };
 static const char *volumeDOWN[] = { "pamixer", "-d", "25", NULL };
-static const char *volumemute[] = { "pamixer", "-m", NULL };
+static const char *volumemute[] = { "pamixer", "-t", NULL };
 static const char *printscreen[] = { "/home/adam/.scripts/screenshot", NULL};
 static const char *sptrestart[] = {"/home/adam/.scripts/sptrestart", NULL};
 static const char *sptshow[] = {"killall", "-SIGUSR1", "spt", NULL};
@@ -79,6 +80,7 @@ static const char *sptpause[] = {"killall", "-SIGUSR2", "spt", NULL};
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = scratchpad } },
 	{ MODKEY|ShiftMask,             XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd_res } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = lfcmd } },
