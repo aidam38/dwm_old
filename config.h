@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char *fonts[] = {
+/* static const char *fonts[] = {
 	"hack:size=11"
 };
 static const char dmenufont[]       = "hack:size=11";
@@ -10,14 +10,14 @@ static const char normbgcolor[]     = "#151515";
 static const char normfgcolor[]     = "#d0d0d0";
 static const char selbordercolor[]  = "#d28445";
 static const char selbgcolor[]      = "#303030";
-static const char selfgcolor[]      = "#d0d0d0";
+static const char selfgcolor[]      = "#d0d0d0"; */
+#include "dwmcolors.h"
 static unsigned int baralpha        = 0xff;
 static unsigned int borderalpha     = OPAQUE;
 static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static unsigned int gappx           = 20;        /* gap pixel between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
-static const int topbar             = 1;        /* 0 means bottom bar */
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "♫" };
@@ -100,8 +100,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_h,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_l,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.02} },
+	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.02} },
 	{ MODKEY,                       XK_space,  zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,                       XK_w,      killclient,     {0} },
